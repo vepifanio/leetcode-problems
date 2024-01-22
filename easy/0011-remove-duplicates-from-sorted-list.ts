@@ -20,17 +20,19 @@ class ListNode {
 }
 
 function deleteDuplicates(head: ListNode | null): ListNode | null {
-  if (head === null) {
-    return null
+  let prev = head
+  let dummy = head
+
+  while (dummy !== null) {
+    dummy = prev?.next
+
+    if (prev?.val === dummy?.val) {
+      prev.next = dummy.next
+      dummy = prev.next
+    } else {
+      prev = dummy
+    }
   }
-
-  let currentNext = head.next
-
-  while (head.val === currentNext?.val && currentNext !== null) {
-    currentNext = currentNext.next
-  }
-
-  head.next = deleteDuplicates(currentNext)
 
   return head
 }
