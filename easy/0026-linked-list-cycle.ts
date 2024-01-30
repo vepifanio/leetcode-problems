@@ -8,23 +8,15 @@ class ListNode {
 }
 
 function hasCycle(head: ListNode | null): boolean {
-  const nodes: (ListNode | null)[] = []
-  let current = head
+  let slow = head
+  let fast = head
 
-  while (current !== null) {
-    if (current.next === null) {
-      return false
+  while (fast && fast.next && fast.next.next) {
+    slow = slow.next
+    fast = fast.next.next
+    if (slow === fast) {
+      return true
     }
-
-    for (const node of nodes) {
-      if (node === current) {
-        return true
-      }
-    }
-
-    nodes.push(current)
-
-    current = current.next
   }
 
   return false
